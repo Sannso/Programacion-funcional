@@ -1,0 +1,452 @@
+(require (lib "graphics.ss" "graphics"))
+(open-graphics)
+(define ventanaq (open-viewport "Minerman" 800 600))
+((draw-solid-rectangle ventanaq)(make-posn 0 0) 800 600 "black")
+((draw-pixmap ventanaq) "TITULOO.jpg" (make-posn 0 0))
+
+(define (creditos)
+(define ventana3 (open-viewport "Creditos" 800 600))
+  ((draw-pixmap ventana3) "creditos.jpg" (make-posn 0 0))
+  )
+  
+
+
+(define (cerrar)
+  (close-viewport ventanaq))
+
+(define (ayuda)
+  (define ventana2 (open-viewport "Ayuda" 800 600))
+  (define (close) (close-viewport ventana2))
+  (define (ayuda2)
+  ((draw-pixmap ventana2) "Mecanicas.jpg"(make-posn 0 0))
+  )
+((draw-solid-rectangle ventana2)(make-posn 0 0) 800 600 "black")
+  ((draw-pixmap ventana2)"Controles.jpg" (make-posn 0 0))
+  (get-mouse-click ventana2)
+  (define x (posn-x (query-mouse-posn ventana2)))
+  (define y (posn-y (query-mouse-posn ventana2)))
+  (display x)
+  (newline)
+  (display y)    
+  (if (and (>= x 705)(<= x 770)(>= y 25)(<= y 130))
+      (ayuda2)
+  )
+  (if (and (>= x 652)(<= x 786)(>= y 510)(<= y 590))
+      (close)
+      )
+  (if (and (>= x 705)(<= x 770)(>= y 25)(<= y 130))
+      (ayuda2)
+  )
+  )
+(define (ayuda2)
+  ((draw-pixmap ventana2) "Mecanicas.jpg"(make-posn 0 0))
+  )
+
+
+
+(define (laberinto)
+  (define ventana (open-viewport "juego" 1100 782));nombre de la ventana
+  (close-viewport ventanaq)
+ ((draw-pixmap ventana) "e1.png" (make-posn 0 0))
+  ((draw-pixmap ventana) "puerta.png" (make-posn 1047 624))
+;lo que mueve al jodido cuadrado
+(cuadrado ventana 50 55 0);este es el cuadrado 
+ (movercuadrado ventana 50 55 0) ;esto es lo que hace que lo mueva
+
+ ((draw-line ventana) (make-posn 50 55) (make-posn 1048 55) "black")
+  ((draw-line ventana) (make-posn 50 55) (make-posn 50 727) "black")
+  ((draw-line ventana) (make-posn 50 727) (make-posn 1048 727) "black")
+  ((draw-line ventana) (make-posn 1048 727) (make-posn 1048 55) "black")
+  ((draw-line ventana) (make-posn 953 103) (make-posn 953 159) "red")
+  
+ )
+;-----------------------------------------------
+;funciones
+
+
+;funfion1 (minerman derecha)
+ (define (cuadrado ventana a b numer)
+   (if (= numer 0)
+   ((draw-pixmap ventana) "m1.png" (make-posn a b))
+   )
+
+   (if (= numer 1)
+   ((draw-solid-rectangle ventana)(make-posn a b) 23 44 "red")
+   )
+
+   
+ )
+
+
+
+ 
+;funcion 2 (lo que lo mueve)
+
+ 
+
+ (define (movercuadrado ventana a b pres)
+   
+  (define pres 0)
+  (set! pres (key-value (get-key-press ventana))); lo que hace que ud al oprimir una flecha
+   ;el cuadrado verde se mueva en la direccion de la flecha
+    
+    (if (equal? pres 'right) ;si opime flecha a la DERECHA
+         (begin
+              (if (and(>= a 1019)(>= b 626))
+              
+              (begin
+                ((draw-pixmap ventana) "win.png" (make-posn 0 0))              
+                (sleep 6)
+                (close-viewport ventana)
+                (close-graphics)
+                )
+              (begin
+                (void)
+                )
+
+              
+          )
+              
+
+
+        
+        (begin
+                  ;columna 1  eso es (a - 28) (b - 47)                       columna 2                                                coluimna 3
+          (if (or (and (>= a 1020) (>= b 50) (<= b 725))       
+                  (and (>= a 67) (<= a 143) (>= b 57) (<= b 154))          (and (>= a 163) (<= a 240) (>= b 57) (<= b 154))          (and (>= a 256) (<= a 336) (>= b 57) (<= b 154))
+                  (and (>= a 67) (<= a 143) (>= b 166) (<= b 261))         (and (>= a 163) (<= a 240) (>= b 166) (<= b 261))         (and (>= a 256) (<= a 336) (>= b 166) (<= b 261))
+                  (and (>= a 67) (<= a 143) (>= b 267) (<= b 365))         (and (>= a 163) (<= a 240) (>= b 267) (<= b 365))         (and (>= a 256) (<= a 336) (>= b 267) (<= b 365)) 
+                  (and (>= a 67) (<= a 143) (>= b 373) (<= b 468))         (and (>= a 163) (<= a 240) (>= b 373) (<= b 468))         (and (>= a 256) (<= a 336) (>= b 373) (<= b 468))  
+                  (and (>= a 67) (<= a 143) (>= b 476) (<= b 572))         (and (>= a 163) (<= a 240) (>= b 476) (<= b 573))         (and (>= a 256) (<= a 336) (>= b 476) (<= b 573)) 
+                  (and (>= a 73) (<= a 143) (>= b 581) (<= b 678))         (and (>= a 163) (<= a 240) (>= b 581) (<= b 678))         (and (>= a 256) (<= a 336) (>= b 581) (<= b 678))
+
+
+                   ;columna 4                                                columna 5                                                 columa 6 
+                  (and (>= a 352) (<= a 430) (>= b 57) (<= b 154))          (and (>= a 448) (<= a 526) (>= b 57) (<= b 154))          (and (>= a 543) (<= a 621) (>= b 57) (<= b 154))
+                  (and (>= a 352) (<= a 430) (>= b 166) (<= b 261))         (and (>= a 448) (<= a 526) (>= b 166) (<= b 261))         (and (>= a 543) (<= a 621) (>= b 166) (<= b 261))
+                  (and (>= a 352) (<= a 430) (>= b 267) (<= b 365))         (and (>= a 448) (<= a 526) (>= b 267) (<= b 365))         (and (>= a 543) (<= a 621) (>= b 267) (<= b 365)) 
+                  (and (>= a 352) (<= a 430) (>= b 373) (<= b 468))         (and (>= a 448) (<= a 526) (>= b 373) (<= b 468))         (and (>= a 543) (<= a 621) (>= b 373) (<= b 468))  
+                  (and (>= a 352) (<= a 430) (>= b 476) (<= b 572))         (and (>= a 448) (<= a 526) (>= b 476) (<= b 573))         (and (>= a 543) (<= a 621) (>= b 476) (<= b 573)) 
+                  (and (>= a 352) (<= a 430) (>= b 581) (<= b 678))         (and (>= a 448) (<= a 526) (>= b 581) (<= b 678))         (and (>= a 543) (<= a 621) (>= b 581) (<= b 678))
+
+
+                   ;columna 7                                                columna 8                                                 columa 9 
+                  (and (>= a 638) (<= a 714) (>= b 57) (<= b 154))          (and (>= a 733) (<= a 810) (>= b 57) (<= b 154))          (and (>= a 828) (<= a 906) (>= b 57) (<= b 154))
+                  (and (>= a 638) (<= a 714) (>= b 166) (<= b 261))         (and (>= a 733) (<= a 810) (>= b 166) (<= b 261))         (and (>= a 828) (<= a 906) (>= b 166) (<= b 261))
+                  (and (>= a 638) (<= a 714) (>= b 267) (<= b 365))         (and (>= a 733) (<= a 810) (>= b 267) (<= b 365))         (and (>= a 828) (<= a 906) (>= b 267) (<= b 365)) 
+                  (and (>= a 638) (<= a 714) (>= b 373) (<= b 468))         (and (>= a 733) (<= a 810) (>= b 373) (<= b 468))         (and (>= a 828) (<= a 906) (>= b 373) (<= b 468))  
+                  (and (>= a 638) (<= a 714) (>= b 476) (<= b 572))         (and (>= a 733) (<= a 810) (>= b 476) (<= b 573))         (and (>= a 828) (<= a 906) (>= b 476) (<= b 573)) 
+                  (and (>= a 638) (<= a 714) (>= b 581) (<= b 678))         (and (>= a 733) (<= a 810) (>= b 581) (<= b 678))         (and (>= a 828) (<= a 906) (>= b 581) (<= b 678))
+
+
+                  ;columna 10                                             
+                  (and (>= a 923) (<= a 1000) (>= b 57) (<= b 154))        
+                  (and (>= a 923) (<= a 1000) (>= b 166) (<= b 261))       
+                  (and (>= a 923) (<= a 1000) (>= b 267) (<= b 365))       
+                  (and (>= a 923) (<= a 1000) (>= b 373) (<= b 468))          
+                  (and (>= a 923) (<= a 1000) (>= b 476) (<= b 572))         
+                  (and (>= a 923) (<= a 1000) (>= b 581) (<= b 678))         
+          
+                
+
+)
+
+
+              (begin
+                (cuadrado ventana (+ b 600) (+ b 600) 0)
+                
+                )
+
+              
+              (begin
+                (cuadrado ventana a b 1)
+                (cuadrado ventana (+ a 6) b 0)
+                (movercuadrado ventana (+ a 6) b 0)
+                )
+              
+          )
+      )
+        )
+    )    
+    
+
+   
+     (if (equal? pres 'down) ;si oprime flecha ABAJO
+         (begin
+          (if (or (and (>= b 679) (>= a 50) (<= a 1046))
+
+                 ;Colummna 1
+                  (and (>= b 54)(<= b 160) (>= a 70) (<= a 142))
+                  (and (>= b 160)(<= b 261) (>= a 70) (<= a 142))
+                  (and (>= b 263)(<= b 365) (>= a 70) (<= a 142))
+                  (and (>= b 366)(<= b 468) (>= a 70) (<= a 142))
+                  (and (>= b 467)(<= b 572) (>= a 70) (<= a 142))
+                  (and (>= b 575)(<= b 656) (>= a 75) (<= a 149))
+                 ;Colummna 2
+                  (and (>= b 54)(<= b 160) (>= a 166)(<= a 237))
+                  (and (>= b 160)(<= b 261) (>= a 166) (<= a 237))
+                  (and (>= b 263)(<= b 365) (>= a 166) (<= a 237))
+                  (and (>= b 366)(<= b 468) (>= a 166) (<= a 237))
+                  (and (>= b 467)(<= b 572) (>= a 166) (<= a 237))
+                  (and (>= b 575)(<= b 656) (>= a 166) (<= a 237))
+                 ;Colummna 3
+                  (and (>= b 54)(<= b 160) (>= a 259) (<= a 334))
+                  (and (>= b 160)(<= b 261) (>= a 259) (<= a 334))
+                  (and (>= b 263)(<= b 365) (>= a 259) (<= a 334))
+                  (and (>= b 366)(<= b 468) (>= a 259) (<= a 334))
+                  (and (>= b 467)(<= b 572) (>= a 259) (<= a 334))
+                  (and (>= b 575)(<= b 656) (>= a 259) (<= a 334))
+                 ;Columna 4 
+                  (and (>= b 54) (<= b 160) (>= a 354) (<= a 429))
+                  (and (>= b 160)(<= b 261) (>= a 354) (<= a 429))
+                  (and (>= b 263)(<= b 365) (>= a 354) (<= a 429))
+                  (and (>= b 366)(<= b 468) (>= a 354) (<= a 429))
+                  (and (>= b 467)(<= b 572) (>= a 354) (<= a 429))
+                  (and (>= b 575)(<= b 656) (>= a 354) (<= a 429))
+                 ;Columna 5 
+                  (and (>= b 54) (<= b 160) (>= a 451) (<= a 524))
+                  (and (>= b 160)(<= b 261) (>= a 451) (<= a 524))
+                  (and (>= b 263)(<= b 365) (>= a 451) (<= a 524))
+                  (and (>= b 366)(<= b 468) (>= a 451) (<= a 524))
+                  (and (>= b 467)(<= b 572) (>= a 451) (<= a 524))
+                  (and (>= b 575)(<= b 656) (>= a 451) (<= a 524))
+                 ;Columna 6 
+                  (and (>= b 54) (<= b 160) (>= a 547) (<= a 620))
+                  (and (>= b 160)(<= b 261) (>= a 547) (<= a 620))
+                  (and (>= b 263)(<= b 365) (>= a 547) (<= a 620))
+                  (and (>= b 366)(<= b 468) (>= a 547) (<= a 620))
+                  (and (>= b 467)(<= b 572) (>= a 547) (<= a 620))
+                  (and (>= b 575)(<= b 656) (>= a 547) (<= a 620))
+                 ;Columna 7  
+                  (and (>= b 54) (<= b 160) (>= a 641) (<= a 714))
+                  (and (>= b 160)(<= b 261) (>= a 641) (<= a 714))
+                  (and (>= b 263)(<= b 365) (>= a 641) (<= a 714))
+                  (and (>= b 366)(<= b 468) (>= a 641) (<= a 714))
+                  (and (>= b 467)(<= b 572) (>= a 641) (<= a 714))
+                  (and (>= b 575)(<= b 656) (>= a 641) (<= a 714))
+                 ;Columna 8 
+                  (and (>= b 54) (<= b 160) (>= a 737) (<= a 810))
+                  (and (>= b 160)(<= b 261) (>= a 737) (<= a 810))
+                  (and (>= b 263)(<= b 365) (>= a 737) (<= a 810))
+                  (and (>= b 366)(<= b 468) (>= a 737) (<= a 810))
+                  (and (>= b 467)(<= b 572) (>= a 737) (<= a 810))
+                  (and (>= b 575)(<= b 656) (>= a 737) (<= a 810))
+                 ;Columna 9 
+                  (and (>= b 54) (<= b 160) (>= a 832) (<= a 905))
+                  (and (>= b 160)(<= b 261) (>= a 832) (<= a 905))
+                  (and (>= b 263)(<= b 365) (>= a 832) (<= a 905))
+                  (and (>= b 366)(<= b 468) (>= a 832) (<= a 905))
+                  (and (>= b 467)(<= b 572) (>= a 832) (<= a 905))
+                  (and (>= b 575)(<= b 656) (>= a 832) (<= a 905))
+                 ;Columna 10 
+                  (and (>= b 54) (<= b 160) (>= a 927) (<= a 1000))
+                  (and (>= b 160)(<= b 261) (>= a 927) (<= a 1000))
+                  (and (>= b 263)(<= b 365) (>= a 927) (<= a 1000))
+                  (and (>= b 366)(<= b 468) (>= a 927) (<= a 1000))
+                  (and (>= b 467)(<= b 572) (>= a 927) (<= a 1000))
+                  (and (>= b 575)(<= b 656) (>= a 927) (<= a 1000))
+                  
+              ) 
+
+
+              (begin
+                (cuadrado ventana (+ b 600) (+ b 600) 0)
+                
+                )
+         
+               (begin
+                 (cuadrado ventana a b 1)
+                (cuadrado ventana a (+ b 6) 0)
+                (movercuadrado ventana a (+ b 6) 0)
+                )
+
+             
+     )
+      )
+    )
+
+   
+      (if (equal? pres 'left); si oprime flecha a la IZQUIERDA
+               (begin
+                 (if (or (and (<= a 53) (>= b 50) (<= b 727)) ;laterar izquierdo
+
+                  ;columa 1                                                  columna 2                                                 columna 3                  
+                  (and (>= a 94)  (<= a 146) (>= b 57)  (<= b 154))         (and (>= a 189) (<= a 243) (>= b 57) (<= b 154))          (and (>= a 283) (<= a 339) (>= b 57) (<= b 154))
+                  (and (>= a 94)  (<= a 146) (>= b 166) (<= b 261))         (and (>= a 189) (<= a 243) (>= b 166) (<= b 261))         (and (>= a 283) (<= a 339) (>= b 166) (<= b 261))
+                  (and (>= a 94)  (<= a 146) (>= b 267) (<= b 365))         (and (>= a 189) (<= a 243) (>= b 267) (<= b 365))         (and (>= a 283) (<= a 339) (>= b 267) (<= b 365)) 
+                  (and (>= a 94)  (<= a 146) (>= b 373) (<= b 468))         (and (>= a 189) (<= a 243) (>= b 373) (<= b 468))         (and (>= a 283) (<= a 339) (>= b 373) (<= b 468))  
+                  (and (>= a 94)  (<= a 146) (>= b 476) (<= b 572))         (and (>= a 189) (<= a 243) (>= b 476) (<= b 573))         (and (>= a 283) (<= a 339) (>= b 476) (<= b 573)) 
+                  (and (>= a 100) (<= a 146) (>= b 581) (<= b 678))         (and (>= a 189) (<= a 243) (>= b 581) (<= b 678))         (and (>= a 283) (<= a 339) (>= b 581) (<= b 678))
+
+
+                   ;columna 4                                                columna 5                                                 columa 6 
+                  (and (>= a 379) (<= a 433) (>= b 57) (<= b 154))          (and (>= a 474) (<= a 531) (>= b 57) (<= b 154))          (and (>= a 570) (<= a 627) (>= b 57) (<= b 154))
+                  (and (>= a 379) (<= a 433) (>= b 166) (<= b 261))         (and (>= a 474) (<= a 531) (>= b 166) (<= b 261))         (and (>= a 570) (<= a 627) (>= b 166) (<= b 261))
+                  (and (>= a 379) (<= a 433) (>= b 267) (<= b 365))         (and (>= a 474) (<= a 531) (>= b 267) (<= b 365))         (and (>= a 570) (<= a 627) (>= b 267) (<= b 365)) 
+                  (and (>= a 379) (<= a 433) (>= b 373) (<= b 468))         (and (>= a 474) (<= a 531) (>= b 373) (<= b 468))         (and (>= a 570) (<= a 627) (>= b 373) (<= b 468))  
+                  (and (>= a 379) (<= a 433) (>= b 476) (<= b 572))         (and (>= a 474) (<= a 531) (>= b 476) (<= b 573))         (and (>= a 570) (<= a 627) (>= b 476) (<= b 573)) 
+                  (and (>= a 379) (<= a 433) (>= b 581) (<= b 678))         (and (>= a 474) (<= a 531) (>= b 581) (<= b 678))         (and (>= a 570) (<= a 627) (>= b 581) (<= b 678))
+
+
+                   ;columna 7                                                columna 8                                                 columa 9 
+                  (and (>= a 665) (<= a 716) (>= b 57) (<= b 154))          (and (>= a 760) (<= a 812) (>= b 57) (<= b 154))          (and (>= a 856) (<= a 908) (>= b 57) (<= b 154))
+                  (and (>= a 665) (<= a 716) (>= b 166) (<= b 261))         (and (>= a 760) (<= a 812) (>= b 166) (<= b 261))         (and (>= a 856) (<= a 908) (>= b 166) (<= b 261))
+                  (and (>= a 665) (<= a 716) (>= b 267) (<= b 365))         (and (>= a 760) (<= a 812) (>= b 267) (<= b 365))         (and (>= a 856) (<= a 908) (>= b 267) (<= b 365)) 
+                  (and (>= a 665) (<= a 716) (>= b 373) (<= b 468))         (and (>= a 760) (<= a 812) (>= b 373) (<= b 468))         (and (>= a 856) (<= a 908) (>= b 373) (<= b 468))  
+                  (and (>= a 665) (<= a 716) (>= b 476) (<= b 572))         (and (>= a 760) (<= a 812) (>= b 476) (<= b 573))         (and (>= a 856) (<= a 908) (>= b 476) (<= b 573)) 
+                  (and (>= a 665) (<= a 716) (>= b 581) (<= b 678))         (and (>= a 760) (<= a 812) (>= b 581) (<= b 678))         (and (>= a 856) (<= a 908) (>= b 581) (<= b 678))
+
+
+                  ;columna 10                                             
+                  (and (>= a 951) (<= a 1005) (>= b 57) (<= b 154))        
+                  (and (>= a 951) (<= a 1005) (>= b 166) (<= b 261))       
+                  (and (>= a 951) (<= a 1005) (>= b 267) (<= b 365))       
+                  (and (>= a 951) (<= a 1005) (>= b 373) (<= b 468))          
+                  (and (>= a 951) (<= a 1005) (>= b 476) (<= b 572))         
+                  (and (>= a 951) (<= a 1005) (>= b 581) (<= b 678)) 
+              ) 
+                     
+                     (begin
+                (cuadrado ventana (+ b 600) (+ b 600) 0)
+                
+                )
+                     (begin
+                 (cuadrado ventana a b 1)
+                (cuadrado ventana (- a 6) b 0)
+                (movercuadrado ventana (- a 6) b 0)
+                )
+
+                
+      )
+                 )
+               )
+
+       
+
+
+    (if (equal? pres 'up); si oprime flecha ARRIBA
+
+        (begin
+          (if (or (and (= a 50) (>= b 55) (<= b 55))
+                  (and (= b 55) (>= a 50) (<= a 1048))
+
+                  ;Colummna 1
+                  (and (>= b 54)(<= b 160) (>= a 70) (<= a 142))
+                  (and (>= b 160)(<= b 261) (>= a 70) (<= a 142))
+                  (and (>= b 263)(<= b 365) (>= a 70) (<= a 142))
+                  (and (>= b 366)(<= b 468) (>= a 70) (<= a 142))
+                  (and (>= b 467)(<= b 572) (>= a 70) (<= a 142))
+                  (and (>= b 575)(<= b 680) (>= a 75) (<= a 149))
+                 ;Colummna 2
+                  (and (>= b 54)(<= b 160) (>= a 166)(<= a 237))
+                  (and (>= b 160)(<= b 261) (>= a 166) (<= a 237))
+                  (and (>= b 263)(<= b 365) (>= a 166) (<= a 237))
+                  (and (>= b 366)(<= b 468) (>= a 166) (<= a 237))
+                  (and (>= b 467)(<= b 572) (>= a 166) (<= a 237))
+                  (and (>= b 575)(<= b 680) (>= a 166) (<= a 237))
+                 ;Colummna 3
+                  (and (>= b 54)(<= b 160) (>= a 259) (<= a 334))
+                  (and (>= b 160)(<= b 261) (>= a 259) (<= a 334))
+                  (and (>= b 263)(<= b 365) (>= a 259) (<= a 334))
+                  (and (>= b 366)(<= b 468) (>= a 259) (<= a 334))
+                  (and (>= b 467)(<= b 572) (>= a 259) (<= a 334))
+                  (and (>= b 575)(<= b 680) (>= a 259) (<= a 334))
+                 ;Columna 4 
+                  (and (>= b 54) (<= b 160) (>= a 354) (<= a 429))
+                  (and (>= b 160)(<= b 261) (>= a 354) (<= a 429))
+                  (and (>= b 263)(<= b 365) (>= a 354) (<= a 429))
+                  (and (>= b 366)(<= b 468) (>= a 354) (<= a 429))
+                  (and (>= b 467)(<= b 572) (>= a 354) (<= a 429))
+                  (and (>= b 575)(<= b 680) (>= a 354) (<= a 429))
+                 ;Columna 5 
+                  (and (>= b 54) (<= b 160) (>= a 451) (<= a 524))
+                  (and (>= b 160)(<= b 261) (>= a 451) (<= a 524))
+                  (and (>= b 263)(<= b 365) (>= a 451) (<= a 524))
+                  (and (>= b 366)(<= b 468) (>= a 451) (<= a 524))
+                  (and (>= b 467)(<= b 572) (>= a 451) (<= a 524))
+                  (and (>= b 575)(<= b 680) (>= a 451) (<= a 524))
+                 ;Columna 6 
+                  (and (>= b 54) (<= b 160) (>= a 547) (<= a 620))
+                  (and (>= b 160)(<= b 261) (>= a 547) (<= a 620))
+                  (and (>= b 263)(<= b 365) (>= a 547) (<= a 620))
+                  (and (>= b 366)(<= b 468) (>= a 547) (<= a 620))
+                  (and (>= b 467)(<= b 572) (>= a 547) (<= a 620))
+                  (and (>= b 575)(<= b 680) (>= a 547) (<= a 620))
+                 ;Columna 7  
+                  (and (>= b 54) (<= b 160) (>= a 641) (<= a 714))
+                  (and (>= b 160)(<= b 261) (>= a 641) (<= a 714))
+                  (and (>= b 263)(<= b 365) (>= a 641) (<= a 714))
+                  (and (>= b 366)(<= b 468) (>= a 641) (<= a 714))
+                  (and (>= b 467)(<= b 572) (>= a 641) (<= a 714))
+                  (and (>= b 575)(<= b 680) (>= a 641) (<= a 714))
+                 ;Columna 8 
+                  (and (>= b 54) (<= b 160) (>= a 737) (<= a 810))
+                  (and (>= b 160)(<= b 261) (>= a 737) (<= a 810))
+                  (and (>= b 263)(<= b 365) (>= a 737) (<= a 810))
+                  (and (>= b 366)(<= b 468) (>= a 737) (<= a 810))
+                  (and (>= b 467)(<= b 572) (>= a 737) (<= a 810))
+                  (and (>= b 575)(<= b 680) (>= a 737) (<= a 810))
+                 ;Columna 9 
+                  (and (>= b 54) (<= b 160) (>= a 832) (<= a 905))
+                  (and (>= b 160)(<= b 261) (>= a 832) (<= a 905))
+                  (and (>= b 263)(<= b 365) (>= a 832) (<= a 905))
+                  (and (>= b 366)(<= b 468) (>= a 832) (<= a 905))
+                  (and (>= b 467)(<= b 572) (>= a 832) (<= a 905))
+                  (and (>= b 575)(<= b 680) (>= a 832) (<= a 905))
+                 ;Columna 10 
+                  (and (>= b 54) (<= b 160) (>= a 927) (<= a 1000))
+                  (and (>= b 160)(<= b 261) (>= a 927) (<= a 1000))
+                  (and (>= b 263)(<= b 365) (>= a 927) (<= a 1000))
+                  (and (>= b 366)(<= b 468) (>= a 927) (<= a 1000))
+                  (and (>= b 467)(<= b 572) (>= a 927) (<= a 1000))
+                  (and (>= b 575)(<= b 680) (>= a 927) (<= a 1000))
+                  
+
+              ) 
+
+
+              (begin
+                (cuadrado ventana (+ b 600) (+ b 600) 0)
+                
+                )
+         
+               (begin
+                 (cuadrado ventana a b 1)
+                (cuadrado ventana a (- b 6) 0)
+                (movercuadrado ventana a (- b 6) 0)
+                )
+             
+     )
+          )
+        )
+
+   
+
+   (movercuadrado ventana a b 0)
+    
+)
+
+ (define (click)
+  (get-mouse-click ventanaq) 
+  (define x (posn-x (query-mouse-posn ventanaq)))
+  (define y (posn-y (query-mouse-posn ventanaq)))
+  (display x)
+  (newline)
+  (newline)
+  (display y)
+  (if (and (>= x 257)(<= x 532) (>= y 243)(<= y 319))
+      (laberinto)
+      )
+  (if (and (>= x 275)(<= x 531) (>= y 396)(>= y 449))
+      (creditos)
+      )
+  (if (and (>= x 652)(<= x 786) (>= y 490)(<= y 590))
+      (cerrar)
+      )
+  (if (and (>= x 266)(<= x 535) (>= y 373)(<= y 437))
+      (ayuda)
+      )
+      (click)
+  )
+ 
+ (click)      

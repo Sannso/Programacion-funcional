@@ -1,0 +1,85 @@
+(require (lib "graphics.ss" "graphics"))
+
+
+
+(define (laberinto)
+  (open-graphics)
+  (define ventana (open-viewport "Minerman" 800 600));nombre de la ventana
+
+  
+;lo que mueve al jodido cuadrado
+(cuadrado ventana 100 100 0);este es el cuadrado
+ (movercuadrado ventana 100 100 0) ;esto es lo que hace que lo mueva
+
+ )
+;-----------------------------------------------
+;funciones
+
+;funfion1 (minerman derecha)
+ (define (cuadrado ventana a b numer)
+   (if (= numer 0)
+   ((draw-pixmap ventana) "imagenes/m1.png" (make-posn a b))
+   )
+ )
+
+
+
+ 
+;funcion 2 (lo que lo mueve)
+
+ (define (movercuadrado ventana a b pres)
+   
+  (define pres 0)
+  (set! pres (key-value (get-key-press ventana))); lo que hace que ud al oprimir una flecha
+   ;el cuadrado verde se mueva en la direccion de la flecha
+    
+    (if (equal? pres 'right) ;si opime flecha a la DERECHA
+                           
+              (begin
+                (cuadrado ventana (+ a 2) b 0)
+                (movercuadrado ventana (+ a 2) b 0)
+                )
+
+          
+      )    
+    
+
+   
+     (if (equal? pres 'down) ;si oprime flecha ABAJO
+         
+               (begin
+                (cuadrado ventana a (+ b 2) 0)
+                (movercuadrado ventana a (+ b 2) 0)
+                )
+
+             
+     )
+
+   
+      (if (equal? pres 'left); si oprime flecha a la IZQUIERDA
+               (begin
+                (cuadrado ventana (- a 2) b 0)
+                (movercuadrado ventana (- a 2) b 0)
+                )
+
+                
+      )          
+
+       
+
+
+    (if (equal? pres 'up); si oprime flecha ARRIBA
+            
+             (begin 
+                (cuadrado ventana a (- b 2) 0)
+                (movercuadrado ventana a (- b 2) 0)
+                )
+
+             
+     )
+
+   (movercuadrado ventana a b 0)
+    
+)
+ 
+(laberinto)       

@@ -1,0 +1,94 @@
+(require (lib "graphics.ss" "graphics"))
+
+
+
+(define (laberinto)
+  (open-graphics)
+  (define ventana (open-viewport "juego" 1100 782));nombre de la ventana
+  ((draw-pixmap ventana) "imagenes/e1.png" (make-posn 0 0))
+  
+;lo que mueve al jodido cuadrado
+(cuadrado ventana 50 55 0);este es el cuadrado 
+ (movercuadrado ventana 50 55 0) ;esto es lo que hace que lo mueva
+
+  
+ )
+;-----------------------------------------------
+;funciones
+
+;funfion1 (minerman derecha)
+ (define (cuadrado ventana a b numer)
+   (if (= numer 0)
+   ((draw-pixmap ventana) "imagenes/m1.png" (make-posn a b))
+   )
+
+   (if (= numer 1)
+   ((draw-solid-rectangle ventana)(make-posn a b) 23 44 "red")
+   )
+ )
+
+
+
+ 
+;funcion 2 (lo que lo mueve)
+
+ (define (movercuadrado ventana a b pres)
+   
+  (define pres 0)
+  (set! pres (key-value (get-key-press ventana))); lo que hace que ud al oprimir una flecha
+   ;el cuadrado verde se mueva en la direccion de la flecha
+    
+    (if (equal? pres 'right) ;si opime flecha a la DERECHA
+                           
+              (begin
+                (cuadrado ventana a b 1)
+                (cuadrado ventana (+ a 6) b 0)
+                (movercuadrado ventana (+ a 6) b 0)
+                )
+
+          
+      )    
+    
+
+   
+     (if (equal? pres 'down) ;si oprime flecha ABAJO
+         
+               (begin
+                 (cuadrado ventana a b 1)
+                (cuadrado ventana a (+ b 6) 0)
+                (movercuadrado ventana a (+ b 6) 0)
+                )
+
+             
+     )
+
+   
+      (if (equal? pres 'left); si oprime flecha a la IZQUIERDA
+               (begin
+                 (cuadrado ventana a b 1)
+                (cuadrado ventana (- a 6) b 0)
+                (movercuadrado ventana (- a 6) b 0)
+                )
+
+                
+      )          
+
+       
+
+
+    (if (equal? pres 'up); si oprime flecha ARRIBA
+            
+             (begin
+               (cuadrado ventana a b 1)
+                (cuadrado ventana a (- b 6) 0)
+                (movercuadrado ventana a (- b 6) 0)
+                )
+
+             
+     )
+
+   (movercuadrado ventana a b 0)
+    
+)
+ 
+(laberinto)        
