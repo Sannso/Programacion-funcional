@@ -1,0 +1,389 @@
+ 
+; LLama la libreria que utilizaremos  
+;(require (lib "graphics.ss" "graphics"))
+(require (lib "graphics"))
+(open-graphics) 
+
+; La entrada principal del jueg0
+(define entrada(open-viewport "Bienvenido" 1237 696))
+(((draw-pixmap-posn "intro.jpg" ) entrada) (make-posn 0 0 ) "black")
+
+(((draw-pixmap-posn "continuar.jpg" ) entrada) (make-posn 545 610 ) "black")
+  
+(define (click entrada)
+  (get-mouse-click entrada)
+  (define x (posn-x (query-mouse-posn entrada)))
+  (define y (posn-y (query-mouse-posn entrada)))
+  
+  (if (and (>= x 545)(<= x 691)(>= y 610)(<= y 642))
+      (begin
+      (close-viewport entrada)
+      )
+      (click entrada)
+      ))
+(click entrada)
+
+; insstrucciones acerca del juego
+(define Instrucciones(open-viewport "Instrucciones" 1237 696))
+(((draw-pixmap-posn "ir al juego.jpg") Instrucciones) (make-posn 0 0 ) "black")
+
+
+(define (click2 Instrucciones)
+(get-mouse-click Instrucciones)
+  (define x (posn-x (query-mouse-posn Instrucciones)))
+  (define y (posn-y (query-mouse-posn Instrucciones)))
+    (if (and (>= x 453)(<= x 790)(>= y 585)(<= y 635))
+      (begin
+      (close-viewport Instrucciones)
+      )
+      (click2 Instrucciones)
+      ))
+(click2 Instrucciones)
+
+;define w como la pantalla que utilizaremos para el tablero 
+(define w (open-viewport "ajedrez" 800 800))
+(((draw-pixmap-posn "intro2.jpg") w) (make-posn 0 0 ) "black")
+;imprime los cuadros de una linea intercambiados
+(define (LineaHor x y x1 y1 n)
+  (if (> n 6)
+      (begin
+        
+        (((draw-pixmap-posn "Desa.png") w) (make-posn x y ) "black")
+        (((draw-pixmap-posn "Vinoe.png") w) (make-posn x1 y1 ) "black")
+        (LineaHor (+ x 180) y (+ x1 180) y1 (- n 1))
+        )
+     )
+)
+
+;MostrarNuevaVentana w
+;Llama la funcion que abre la ventana y da un llamado ala funcion "acomodar"  
+(define (MostrarNuevaVentana w )
+ (acomodar 40 40 130 40 10 1))
+
+;acomodar
+;baja el reglon y cuadra los cuadros intercalados cada ves que baja 
+(define (acomodar a b a1 b1 c d)
+   (if (<= d 8)
+      (begin
+        
+        (LineaHor a b a1 b1 c)                 
+         (acomodar a1 (+ 90 b) a (+ 90 b1) c (+ 1 d)))
+      (begin
+         ; Nuemros y lestras del tablero
+       ((draw-string w) (make-posn 85 780) "a" "white")
+         ((draw-string w) (make-posn 175 780) "b")
+           ((draw-string w) (make-posn 265 780) "c")
+             ((draw-string w) (make-posn 355 780) "d")
+               ((draw-string w) (make-posn 445 780) "e")
+                 ((draw-string w) (make-posn 535 780) "f")
+                   ((draw-string w) (make-posn 625 780) "g")
+                     ((draw-string w) (make-posn 715 780) "h")
+                       ((draw-string w) (make-posn 20 85 ) "8")    
+                         ((draw-string w) (make-posn 20 175 ) "7")
+                           ((draw-string w) (make-posn 20 265 ) "6")
+                             ((draw-string w) (make-posn 20 355 ) "5")
+                               ((draw-string w) (make-posn 20 445 ) "4")
+                                 ((draw-string w) (make-posn 20 535 ) "3")
+                                   ((draw-string w) (make-posn 20 625 ) "2")
+                                     ((draw-string w) (make-posn 20 715 ) "1")
+                                      ((draw-string w) (make-posn 670 795) "Christian Camilo Garcia"))))
+     
+     
+      
+(MostrarNuevaVentana w)
+; Define cada imagen 
+(define Tauren "torre-negra.png")
+(define Lobo "caballo-negro.png")
+(define Trol "alfil-negro.png")
+(define Trall "rey-negro.png")
+(define Sangre "reina-negra.png")
+(define Goblin "peon-negro.png")
+(define Dradenei "torre-blanca.png")
+(define Elnoche "alfil-blanco.png")
+(define Caballo "caballo-blanco.png")
+(define Rey "rey-blanco.png")
+(define Reyna "reina-blanca.png")
+(define Gnomo "peon-blanco.png")
+(define Invisible "Invisible.png")
+; Crea y guarda la pocicion inicial de queda ficha en un vector
+(define vectorf (make-vector 66 " "))
+(vector-set! vectorf 0 Tauren )
+(vector-set! vectorf 1 Lobo )
+(vector-set! vectorf 2 Trol )
+(vector-set! vectorf 3 Sangre )
+(vector-set! vectorf 4 Trall )
+(vector-set! vectorf 5 Trol )
+(vector-set! vectorf 6 Lobo )
+(vector-set! vectorf 7 Tauren )
+(vector-set! vectorf 8 Goblin )
+(vector-set! vectorf 9 Goblin  )
+(vector-set! vectorf 10 Goblin  )
+(vector-set! vectorf 11 Goblin  )
+(vector-set! vectorf 12 Goblin )
+(vector-set! vectorf 13 Goblin  )
+(vector-set! vectorf 14 Goblin  )
+(vector-set! vectorf 15 Goblin )
+(vector-set! vectorf 16 Invisible )
+(vector-set! vectorf 17 Invisible)
+(vector-set! vectorf 18 Invisible)
+(vector-set! vectorf 19 Invisible )
+(vector-set! vectorf 20 Invisible )
+(vector-set! vectorf 21 Invisible)
+(vector-set! vectorf 22 Invisible)
+(vector-set! vectorf 23 Invisible)
+(vector-set! vectorf 24 Invisible )
+(vector-set! vectorf 25 Invisible )
+(vector-set! vectorf 26 Invisible )
+(vector-set! vectorf 27 Invisible )
+(vector-set! vectorf 28 Invisible )
+(vector-set! vectorf 29 Invisible )
+(vector-set! vectorf 30 Invisible )
+(vector-set! vectorf 31 Invisible )
+(vector-set! vectorf 32 Invisible )
+(vector-set! vectorf 33 Invisible )
+(vector-set! vectorf 34 Invisible )
+(vector-set! vectorf 35 Invisible )
+(vector-set! vectorf 36 Invisible )
+(vector-set! vectorf 37 Invisible )
+(vector-set! vectorf 38 Invisible )
+(vector-set! vectorf 39 Invisible )
+(vector-set! vectorf 40 Invisible )
+(vector-set! vectorf 41 Invisible )
+(vector-set! vectorf 42 Invisible )
+(vector-set! vectorf 43 Invisible )
+(vector-set! vectorf 44 Invisible )
+(vector-set! vectorf 45 Invisible )
+(vector-set! vectorf 46 Invisible )
+(vector-set! vectorf 47 Invisible )
+(vector-set! vectorf 63 Dradenei)
+(vector-set! vectorf 62 Caballo)
+(vector-set! vectorf 61 Elnoche)
+(vector-set! vectorf 60 Rey)
+(vector-set! vectorf 59 Reyna)
+(vector-set! vectorf 58 Elnoche)
+(vector-set! vectorf 57 Caballo)
+(vector-set! vectorf 56 Dradenei)
+(vector-set! vectorf 55 Gnomo)
+(vector-set! vectorf 54 Gnomo)
+(vector-set! vectorf 53 Gnomo)
+(vector-set! vectorf 52 Gnomo)
+(vector-set! vectorf 51 Gnomo)
+(vector-set! vectorf 50 Gnomo)
+(vector-set! vectorf 49 Gnomo)
+(vector-set! vectorf 48 Gnomo)
+(vector-set! vectorf 64 "Desa.png")
+(vector-set! vectorf 65 "Vinoe.png")
+;Dibuja las fichas en la posicion del vector
+(define (acomodar P X Y C)
+  (if (< P C)
+(begin 
+(((draw-pixmap-posn (vector-ref vectorf  P)) w) (make-posn X Y ) "black") 
+(acomodar (+ P 1) (+ X 90) Y C)) ))
+  
+(define (areglar Z P X Y C)
+  (if (<= Z 8) 
+      (begin
+        (acomodar P X Y C)
+        (areglar (+ Z 1) (+ P 8) 40 (+ Y 90)(+ C 8)))))
+        
+(areglar 1 0 40 40 8)
+
+; EsperarClik
+; Espera que se de clik en alguna parte de la pantalla para llamar ala funcion ValidarClick
+(define (EsperarClick w)
+(define c (get-mouse-click w))
+  (define d (get-mouse-click w))
+     (if (not (and c d))
+      (begin
+       (EsperarClick w) 
+      )
+     (begin
+      (convertido (ValidarClick c) (ValidarClick d))
+      (EsperarClick w)
+      )
+    )
+)
+; Funcion que tiene guardado los dos constrastes de los cuadros del ajedrez 
+(define (Pintar T)
+  (if (or(= T 0)(= T 2)(= T 4)(= T 6)(= T 9)(= T 11)(= T 13)(= T 15)(= T 16)(= T 18)(= T 20)(= T 22)(= T 25)(= T 27)(= T 29)(= T 31)(= T 32)(= T 34)(= T 36)(= T 38)(= T 41)
+      (= T 43)(= T 45)(= T 47)(= T 48)(= T 50)(= T 52)(= T 54)(= T 57)(= T 59)(= T 61)(= T 63))
+      64
+      65))
+; Poder
+; verifica que ficha se movera y llama ala funcion Poder"nombre dela ficha"
+(define (Poder T R)
+  (cond ((string=? (vector-ref vectorf  T) Goblin)(PoderGoblin T R))
+        ((string=? (vector-ref vectorf  T) Tauren)(PoderTauren T R))
+        ((string=? (vector-ref vectorf  T) Trol)(PoderTrol T R))
+        ((string=? (vector-ref vectorf  T) Lobo)(PoderLobo T R))
+        ((string=? (vector-ref vectorf  T) Trall)(PoderTrall T R))
+        ((string=? (vector-ref vectorf  T) Sangre)(PoderSangre T R))
+        ((string=? (vector-ref vectorf  T) Gnomo)(PoderGnomo T R))
+        ((string=? (vector-ref vectorf  T) Dradenei)(PoderDradenei T R))
+        ((string=? (vector-ref vectorf  T) Caballo)(PoderCaballo T R))
+        ((string=? (vector-ref vectorf  T) Elnoche)(PoderElnoche T R))
+        ((string=? (vector-ref vectorf  T) Rey)(PoderRey T R))
+        ((string=? (vector-ref vectorf  T) Reyna)(PoderReyna T R)) 
+        (else (EsperarClick w))))
+;PoderGlobin
+; Verifica si es posible moverse donde se le indica cada ficha 
+;(Peon blanco)
+(define (PoderGoblin T R)
+  (cond( (= R (+ T 8))
+      (if (or(string=? (vector-ref vectorf R) Tauren)(string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))
+      #f
+      #t))
+      ( (or(= R (+ T 7)) (= R (+ T 9))) (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #t
+      #f))
+      ((and (= R (+ T 16))(or(= T 8)(= T 9)(= T 10)(= T 11)(= T 12)(= T 13)(= T 14)(= T 15))) #t)
+      (else  
+       #f)))
+;(Peon negro)
+(define (PoderGnomo T R)
+  (cond( (= R (- T 8))
+      (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #f
+      #t))
+      ( (or(= R (- T 7)) (= R (- T 9))) (if (or(string=? (vector-ref vectorf R) Tauren)(string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))
+      #t
+      #f))
+      ((and (= R (- T 16))(or(= T 48)(= T 49)(= T 50)(= T 51)(= T 52)(= T 53)(= T 54)(= T 55))) #t)
+      (else  
+       #f)))
+;(Torre blanca)
+(define (PoderTauren T R)
+  (if (or(= R (- T 8)) (= R (+ T 8)) (= R (- T 16))(= R (+ T 16)) (= R (- T 32)) (= R (+ T 32)) (= R (- T 40)) (= R (+ T 40)) (= R (+ T 48))(= R (- T 48)) (= R (+ T 56))(= R (- T 56))(= R (+ T 64))
+        (= R (- T 64)) (= R (- T 1))(= R (+ T 1))(= R (- T 2))(= R (+ T 2)) (= R (- T 3))(= R (+ T 3))(= R (+ T 4))(= R (- T 4))(= R (- T 5))(= R (+ T 5))(= R (- T 6))(= R (+ T 6))(= R (- T 7))
+        (= R (+ T 7)))
+      (Mirar R T)
+      #f))
+  (define (Mirar R T)
+    (if (<(- R T) 8)
+        (if (> R T)
+         
+         (if (or(string=? (vector-ref vectorf R) Tauren) (string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))             
+             #f
+             (Mirar (- R 1) T))
+         #t)
+        
+     (if (> R T)
+         
+         (if (or(string=? (vector-ref vectorf R) Tauren) (string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))             
+             #f
+             (Mirar (- R 8) T))
+    #t)))
+;(Torre negra)
+(define (PoderDradenei T R)
+  (if (or(= R (- T 8)) (= R (+ T 8))(= R (- T 16))(= R (+ T 16)) (= R (- T 32)) (= R (+ T 32)) (= R (- T 40)) (= R (+ T 40)) (= R (+ T 48))(= R (- T 48)) (= R (+ T 56))(= R (- T 56))(= R (+ T 64))
+        (= R (- T 64)) (= R (- T 1))(= R (+ T 1))(= R (- T 2))(= R (+ T 2)) (= R (- T 3))(= R (+ T 3))(= R (+ T 4))(= R (- T 4))(= R (- T 5))(= R (+ T 5))(= R (- T 6))(= R (+ T 6))(= R (- T 7))
+        (= R (+ T 7)))
+       (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #f
+      #t)
+      #f))
+;(Alfil blanco)
+(define (PoderTrol T R)
+  (if (or(= R (- T 7)) (= R (+ T 7))(= R (- T 9))(= R (+ T 9)) (= R (- T 14)) (= R (+ T 14)) (= R (- T 18)) (= R (+ T 18)) (= R (+ T 21))(= R (- T 21)) (= R (+ T 27))(= R (- T 27))(= R (+ T 28))
+        (= R (- T 28)) (= R (- T 36))(= R (+ T 36))(= R (- T 35))(= R (+ T 35)) (= R (- T 45))(= R (+ T 45))(= R (+ T 42))(= R (- T 42))(= R (- T 54))(= R (+ T 54))(= R (- T 49))(= R (+ T 49))(= R (- T 63))
+        (= R (+ T 63)) (= R (- T 56)) (= R (+ T 56)) )
+       (if (or(string=? (vector-ref vectorf R) Tauren)(string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))
+      #f
+      #t)
+      #f))
+;(Arfil negro)
+(define (PoderElnoche T R)
+  (if (or(= R (- T 7)) (= R (+ T 7))(= R (- T 9))(= R (+ T 9)) (= R (- T 14)) (= R (+ T 14)) (= R (- T 18)) (= R (+ T 18)) (= R (+ T 21))(= R (- T 21)) (= R (+ T 27))(= R (- T 27))(= R (+ T 28))
+        (= R (- T 28)) (= R (- T 36))(= R (+ T 36))(= R (- T 35))(= R (+ T 35)) (= R (- T 45))(= R (+ T 45))(= R (+ T 42))(= R (- T 42))(= R (- T 54))(= R (+ T 54))(= R (- T 49))(= R (+ T 49))(= R (- T 63))
+        (= R (+ T 63)) (= R (- T 56)) (= R (+ T 56)) )
+      (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #f
+      #t)
+      #f))
+;(Reyna blanca)
+(define (PoderSangre T R)
+  (if (or(= R (- T 7)) (= R (+ T 7))(= R (- T 9))(= R (+ T 9)) (= R (- T 14)) (= R (+ T 14)) (= R (- T 18)) (= R (+ T 18)) (= R (+ T 21))(= R (- T 21)) (= R (+ T 27))(= R (- T 27))(= R (+ T 28))
+        (= R (- T 28)) (= R (- T 36))(= R (+ T 36))(= R (- T 35))(= R (+ T 35)) (= R (- T 45))(= R (+ T 45))(= R (+ T 42))(= R (- T 42))(= R (- T 54))(= R (+ T 54))(= R (- T 49))(= R (+ T 49))(= R (- T 63))
+        (= R (+ T 63)) (= R (- T 56)) (= R (+ T 56)) (= R (- T 8)) (= R (+ T 8))(= R (- T 16))(= R (+ T 16)) (= R (- T 32)) (= R (+ T 32)) (= R (- T 40)) (= R (+ T 40)) (= R (+ T 48))(= R (- T 48)) (= R (+ T 56))(= R (- T 56))(= R (+ T 64))
+        (= R (- T 64)) (= R (- T 1))(= R (+ T 1))(= R (- T 2))(= R (+ T 2)) (= R (- T 3))(= R (+ T 3))(= R (+ T 4))(= R (- T 4))(= R (- T 5))(= R (+ T 5))(= R (- T 6))(= R (+ T 6))(= R (- T 7))
+        (= R (+ T 7)))
+      (if (or(string=? (vector-ref vectorf R) Tauren)(string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))
+      #f
+      #t)
+      #f))
+;  (Reyna Negra)
+(define (PoderReyna T R)
+  (if (or(= R (- T 7)) (= R (+ T 7))(= R (- T 9))(= R (+ T 9)) (= R (- T 14)) (= R (+ T 14)) (= R (- T 18)) (= R (+ T 18)) (= R (+ T 21))(= R (- T 21)) (= R (+ T 27))(= R (- T 27))(= R (+ T 28))
+        (= R (- T 28)) (= R (- T 36))(= R (+ T 36))(= R (- T 35))(= R (+ T 35)) (= R (- T 45))(= R (+ T 45))(= R (+ T 42))(= R (- T 42))(= R (- T 54))(= R (+ T 54))(= R (- T 49))(= R (+ T 49))(= R (- T 63))
+        (= R (+ T 63)) (= R (- T 56)) (= R (+ T 56)) (= R (- T 8)) (= R (+ T 8))(= R (- T 16))(= R (+ T 16)) (= R (- T 32)) (= R (+ T 32)) (= R (- T 40)) (= R (+ T 40)) (= R (+ T 48))(= R (- T 48)) (= R (+ T 56))(= R (- T 56))(= R (+ T 64))
+        (= R (- T 64)) (= R (- T 1))(= R (+ T 1))(= R (- T 2))(= R (+ T 2)) (= R (- T 3))(= R (+ T 3))(= R (+ T 4))(= R (- T 4))(= R (- T 5))(= R (+ T 5))(= R (- T 6))(= R (+ T 6))(= R (- T 7))
+        (= R (+ T 7)))
+       (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #f
+      #t)
+      #f))
+; (Rey blanco)
+(define (PoderTrall T R)
+  (if (or(= R (- T 7)) (= R (+ T 7))(= R (- T 9))(= R (+ T 9)) (= R (+ T 1))(= R (- T 1))(= R (- T 8))(= R (- T 8)))
+      (if (or(string=? (vector-ref vectorf R) Tauren)(string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))
+      #f
+      #t)
+      #f))
+; (Rey Negro)
+(define (PoderRey T R)
+  (if (or(= R (- T 7)) (= R (+ T 7))(= R (- T 9))(= R (+ T 9)) (= R (+ T 1))(= R (- T 1))(= R (- T 8))(= R (- T 8)))
+       (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #f
+      #t)
+      #f))
+; (Caballo blanco)
+(define (PoderLobo T R)
+  (if (or(string=? (vector-ref vectorf R) Tauren)(string=? (vector-ref vectorf R) Goblin)(string=? (vector-ref vectorf R) Trol)(string=? (vector-ref vectorf R) Lobo)(string=? (vector-ref vectorf R) Trall)(string=? (vector-ref vectorf R) Sangre))
+      #f
+      #t))
+;(Caballo negro)
+(define (PoderCaballo T R)
+ (if (or(string=? (vector-ref vectorf R) Dradenei)(string=? (vector-ref vectorf R) Gnomo)(string=? (vector-ref vectorf R) Elnoche)(string=? (vector-ref vectorf R) Caballo)(string=? (vector-ref vectorf R) Rey)(string=? (vector-ref vectorf R) Reyna))
+      #f
+      #t))
+  
+; Convertido 
+; Recibee datos numericos y guarda  en esas posiciones del vector el otro objeto selecionado
+ (define (convertido T R)    
+     (if (Poder T R)
+         (begin
+    (vector-set! vectorf R (vector-ref vectorf  T))
+    (vector-set! vectorf T (vector-ref vectorf  (Pintar T)))
+    (areglar 1 0 40 40 8))))
+
+;ValidarClick
+; Valida la posicion del clik dado conociendo su pocicion y llamando ala funcion Areglar2
+(define (ValidarClick c )
+(define po (mouse-click-posn c)) 
+ (areglar2 1 0 130 130 40 40 8 po))
+          
+
+;Arreglar2 y Acomodar2
+; Son las funciones que recursivamente hacen la conversion de las cordenadas dadas a un numero entero correspondiente a alguna posicicon del vector.
+; ej Le entran las cordenadas 50 60 y devuelve -----> 0
+(define (acomodar2 P X1 Y1 X Y C po) 
+  (if (< P C)
+        (begin 
+         (if (and (and (<= (posn-x po) X1) (<= (posn-y po)  Y1)) (and (>= (posn-x po) X) (>= (posn-y po) Y))) P
+         (acomodar2 (+ P 1) (+ X1 90) Y1 (+ X 90) Y C po)
+          ) 
+       )
+  )
+)
+(define (areglar2 Z P X1 Y1 X Y C po)
+   (if (<= Z 8) 
+      (begin
+        (if (number? (acomodar2 P X1 Y1 X Y C po))
+            (acomodar2 P X1 Y1 X Y C po)
+            (areglar2 (+ Z 1) (+ P 8) 130 (+ Y1 90) 40 (+ Y 90)(+ C 8) po))
+        )
+      )        
+  )
+
+ (EsperarClick w)  
+  

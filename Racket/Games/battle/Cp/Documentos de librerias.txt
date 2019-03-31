@@ -1,0 +1,9 @@
+documentos
+
+https://docs.racket-lang.org/teachpack/2htdpuniverse.html
+
+
+https://docs.racket-lang.org/teachpack/2htdpbatch-io.html
+
+
+http://docs.racket-lang.org/htdp/

@@ -1,0 +1,6 @@
+1. el peon se mueve de casilla en casilla, siempre hacia adelante.
+2. la torre se mueve en linea recta (vertical u horizontal)
+3. El caballo se mueve en forma de "l"
+4. El alfin se mueve de forma diagonal.
+5. La reina se mueve en linea recta (diagonal, horizontal o vertical).
+6. El rey se mueve solo una casilla a cualquier posicion

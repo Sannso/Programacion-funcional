@@ -1,0 +1,14 @@
+(require 2htdp/universe 2htdp/image  2htdp/batch-io lang/posn)
+ ;Imagen de la arena del juego 
+(define AREA_JUEGO 
+(bitmap "imagenes/area_juego.jpg"))
+
+; Dimensiones de la pantalla del juego 
+(define ANCHO 1170)
+(define ALTO 600)
+
+
+  (define(iniciar-juego)
+    (to-draw AREA_JUEGO))
+
+  (iniciar-juego)

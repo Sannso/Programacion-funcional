@@ -1,0 +1,24 @@
+Para empezar a jugar siga los sigientes pasos :
+ 
+paso #1
+
+Lenguaje : Determine Language From source 
+
+Paso # 2
+Ejecutar
+
+
+Como jugar ? : 
+
+
+Movimiento del tanque : Flecha arriba , abajo , derecha , izquierda
+
+Disparo : " Espacio "
+
+NUMERO DE VIDAS ?:
+
+Jugador : 2
+
+enemigos : 1
+
+base : 2
