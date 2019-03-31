@@ -1,0 +1,61 @@
+;Quiz
+
+
+;1. De un grupo de 30 estudiantes se conocen los siguientes datos:   Código, Nombre, Nota1, Nota2, Nota3;
+;diseñe un programa que calcule y que muestre en pantalla el promedio de sus notas,
+;el programa debe mostrar en pantalla un mensaje que le indique al usuario el estado del estudiante de acuerdo a la siguiente tabla.
+
+;llamado
+    
+
+(define (nota3 d name n1 n2 n3)
+  (begin
+    (display "El promedio del estudiante es: ")
+    (display (/(+ n1 n2 n3) 3))
+   )
+(begin
+  (if (< (/(+ n1 n2 n3) 3) 3)
+      (display "no aprobo")
+  
+)
+  )
+      )
+
+
+(define (nota2 d name n1 n2)
+  (begin
+    (display "Ingrese la nota 3: ")
+    (nota3 d name n1 n2 (read))
+    (newline)
+   ) 
+)   
+           
+
+(define (nota1 d name n1)
+  (begin
+    (display "Ingrese la nota 2: ")
+    (nota2 d name n1 (read))
+    (newline)
+   )
+)  
+
+(define (nom d name)
+  (begin
+    (display "Ingrese la nota 1: ")
+    (nota1 d name (read))
+    (newline)
+  )
+)  
+
+(define (stu d)
+  (begin
+    (display "Ingrese el nombre del estudiante: ")
+    (nom d (read))
+    (newline)
+   ) 
+)
+
+(display "Con este programa se calcula el promedio del estudiante.")
+(newline)
+(display "Ingrese el codigo del estudiante: ")
+(stu (read))
